@@ -6,12 +6,10 @@ import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 
 // small helper to pick readable text color over a background hex
 function getContrastColor(hex: string) {
-  // strip # if present
   const h = hex.replace('#', '')
   const r = parseInt(h.substring(0,2), 16)
   const g = parseInt(h.substring(2,4), 16)
   const b = parseInt(h.substring(4,6), 16)
-  // relative luminance
   const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
   return lum > 0.55 ? '#1a1a1a' : '#ffffff'
 }
@@ -26,7 +24,6 @@ const newsItems = [
     title: "Portfolio Website Launch",
     description: "Deployed new tech-industrial portfolio featuring project archive and experience timeline.",
     featured: true,
-    // use palette colors from app/globals.css for consistency
     color: "#8b6f47", // chart-1 / primary
   },
   {
@@ -147,9 +144,14 @@ export function NewsSection() {
         06
       </div>
 
-      <div className="relative z-10">
+      {/* FIX UTAMA: 
+         Membungkus SEMUA konten dalam container 'max-w-7xl mx-auto'
+         agar Header, Featured News, dan Carousel memiliki lebar dan margin yang sama.
+      */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-12">
+        
         {/* Header */}
-        <div className={`max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div className={`mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div>
               <div className="text-xs tracking-[0.3em] text-accent mb-2 font-mono">[ UPDATES ]</div>
@@ -181,7 +183,7 @@ export function NewsSection() {
 
         {/* Featured news */}
         {activeCategory === "ALL" && (
-          <div className={`max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 mb-12 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <div className={`mb-12 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <div
               className="relative h-[350px] md:h-[450px] overflow-hidden border-2 border-accent group cursor-pointer"
               onMouseEnter={() => setHoveredCard(-1)}
@@ -238,28 +240,29 @@ export function NewsSection() {
 
         {/* News cards carousel */}
         <div className="relative">
-          {/* Navigation buttons */}
-          <div className="absolute top-1/2 -translate-y-1/2 left-4 z-20 hidden md:block">
+          {/* Navigation buttons - Posisinya sekarang relatif terhadap container 7xl */}
+          <div className="absolute top-1/2 -translate-y-1/2 -left-4 lg:-left-6 z-20 hidden md:block">
             <button
               onClick={() => scroll("left")}
-              className="w-12 h-12 bg-card border-2 border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="w-12 h-12 bg-background border-2 border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors shadow-lg"
             >
               <ChevronLeft size={20} />
             </button>
           </div>
-          <div className="absolute top-1/2 -translate-y-1/2 right-4 z-20 hidden md:block">
+          <div className="absolute top-1/2 -translate-y-1/2 -right-4 lg:-right-6 z-20 hidden md:block">
             <button
               onClick={() => scroll("right")}
-              className="w-12 h-12 bg-card border-2 border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="w-12 h-12 bg-background border-2 border-accent text-accent flex items-center justify-center hover:bg-accent hover:text-accent-foreground transition-colors shadow-lg"
             >
               <ChevronRight size={20} />
             </button>
           </div>
 
           {/* Cards container */}
+          {/* Menghapus padding horizontal berlebih agar rata kiri dengan judul */}
           <div
             ref={scrollRef}
-            className={`flex gap-6 overflow-x-auto px-4 md:px-8 pb-4 scrollbar-hide transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`flex gap-6 overflow-x-auto pb-6 scrollbar-hide transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
             {filteredNews.slice(activeCategory === "ALL" ? 1 : 0).map((item, index) => (
               <div
@@ -268,7 +271,7 @@ export function NewsSection() {
                 onMouseEnter={() => setHoveredCard(item.id)}
                 onMouseLeave={() => setHoveredCard(null)}
               >
-                <div className="relative border-2 border-border overflow-hidden transition-all duration-300 hover:border-accent bg-card">
+                <div className="relative border-2 border-border overflow-hidden transition-all duration-300 hover:border-accent bg-card h-full">
                   {/* Top accent bar */}
                   <div 
                     className="h-1 transition-all duration-300" 
@@ -278,7 +281,7 @@ export function NewsSection() {
                   />
 
                   {/* Content */}
-                  <div className="p-6 min-h-[280px] flex flex-col">
+                  <div className="p-6 min-h-[280px] flex flex-col h-full">
                     <div className="flex items-center gap-3 mb-4">
                       <span
                         className="px-2 py-0.5 text-[10px] font-bold tracking-wider"
@@ -298,7 +301,7 @@ export function NewsSection() {
                     </p>
 
                     <button
-                      className="flex items-center gap-2 text-xs font-bold tracking-wider transition-all duration-300 text-muted-foreground group-hover:text-accent"
+                      className="flex items-center gap-2 text-xs font-bold tracking-wider transition-all duration-300 text-muted-foreground group-hover:text-accent mt-auto"
                     >
                       READ MORE
                       <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
@@ -307,7 +310,7 @@ export function NewsSection() {
 
                   {/* Index */}
                   <div className="absolute top-4 right-4">
-                    <span className="text-5xl font-black text-muted opacity-30 group-hover:opacity-50 transition-opacity">
+                    <span className="text-5xl font-black text-muted opacity-10 group-hover:opacity-30 transition-opacity">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                   </div>
@@ -318,7 +321,7 @@ export function NewsSection() {
         </div>
 
         {/* View all button */}
-        <div className={`max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 mt-12 text-center transition-all duration-1000 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div className={`mt-12 text-center transition-all duration-1000 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <button className="group px-8 py-4 bg-accent text-accent-foreground font-bold tracking-wider hover:shadow-lg transition-all">
             <span className="flex items-center gap-2 justify-center">
               VIEW ALL UPDATES

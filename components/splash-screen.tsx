@@ -1,97 +1,122 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
+import { cn } from "@/lib/utils"
 
 export function SplashScreen({ onComplete }: { onComplete: () => void }) {
-  const [phase, setPhase] = useState(0)
-  const [isComplete, setIsComplete] = useState(false)
+  const [progress, setProgress] = useState(0)
+  const [animationStep, setAnimationStep] = useState("loading") 
 
   useEffect(() => {
-    const timings = [500, 1200, 1800, 2600]
-    let timeoutId: NodeJS.Timeout
+    // Simulasi loading (sekitar 2.5 detik total hingga 100%)
+    const timer = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(timer)
+          startTransition()
+          return 100
+        }
+        const increment = Math.random() * 5 // Kecepatan sedikit lebih lambat
+        return Math.min(prev + increment, 100)
+      })
+    }, 100)
 
-    for (let i = 0; i < timings.length; i++) {
-      setTimeout(() => setPhase(i + 1), timings[i])
-    }
+    return () => clearInterval(timer)
+  }, [])
 
-    timeoutId = setTimeout(() => {
-      setIsComplete(true)
+  const startTransition = () => {
+    setAnimationStep("wipe-brown")
+    setTimeout(() => {
+      setAnimationStep("wipe-white")
+    }, 600)
+    setTimeout(() => {
+      setAnimationStep("finished")
       onComplete()
-    }, 3200)
+    }, 1400)
+  }
 
-    return () => clearTimeout(timeoutId)
-  }, [onComplete])
-
-  if (isComplete) return null
+  if (animationStep === "finished") return null
 
   return (
-    <div className="fixed inset-0 z-[999] bg-white overflow-hidden">
-      {/* Background grid */}
-      <div 
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: `
-            linear-gradient(#5a4a3a 1px, transparent 1px),
-            linear-gradient(90deg, #5a4a3a 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
+    <div className="fixed inset-0 z-[100] overflow-hidden pointer-events-none flex items-center justify-center bg-white cursor-wait">
+      
+      {/* === LAYER 1: KONTEN UTAMA (Teks Rata Kiri) === */}
+      {/* PERUBAHAN: items-center -> items-start, text-center -> text-left, tambahkan padding kiri (pl-...) */}
+      <div className="absolute inset-0 bg-white z-10 flex flex-col justify-center p-8 pl-24 md:pl-32 text-left">
+         {/* Background grid subtle */}
+        <div 
+          className="absolute inset-0 opacity-5 pointer-events-none"
+          style={{
+            backgroundImage: `
+              linear-gradient(#5a4a3a 1px, transparent 1px),
+              linear-gradient(90deg, #5a4a3a 1px, transparent 1px)
+            `,
+            backgroundSize: '40px 40px',
+          }}
+        />
 
-      {/* Content container */}
-      <div className="relative w-full h-full flex flex-col items-center justify-center">
-        {/* Logo/Brand text */}
-        <div className={`transition-all duration-500 mb-12 ${phase >= 1 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-          <h1 className="text-6xl md:text-7xl font-bold text-brown-800 tracking-tighter">
+        {/* Konten Teks Utama */}
+        <div className="relative z-20 flex flex-col items-start font-sans">
+          <h1 className="text-5xl md:text-7xl font-black text-[#8b6f47] tracking-tighter mb-2 leading-none">
             MUHAMAD<br />HAFIZH<br />HUSAINI
           </h1>
-          <p className="text-center mt-4 text-brown-600 font-medium">Industrial Informatics Engineer</p>
-        </div>
-
-        {/* Subtitle/Tagline */}
-        <div className={`transition-all duration-500 delay-300 mb-12 text-center max-w-lg ${phase >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <p className="text-lg text-gray-700">
-            Specializing in ROS 2, IoT Systems, and Robotics Architecture
+          <p className="text-lg md:text-xl text-[#5a4a3a] font-bold tracking-widest mb-6 uppercase">
+            Industrial Informatics Engineer
+          </p>
+          <div className="h-1 w-24 bg-[#8b6f47]/30 mb-6" /> {/* Garis pemanis */}
+          <p className="text-sm font-mono text-gray-600 max-w-md leading-relaxed">
+            // Specializing in ROS 2 Architecture, IoT Systems Development, and Advanced Robotics Implementation.
           </p>
         </div>
 
-        {/* Animated lines */}
-        <div className="flex gap-2 items-center justify-center mb-12">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <div
-              key={i}
-              className={`transition-all duration-500 ${phase >= 3 ? 'h-8 opacity-100' : 'h-0 opacity-0'}`}
-              style={{ 
-                transitionDelay: `${i * 100}ms`,
-                backgroundColor: i % 2 === 0 ? '#8b6f47' : '#d4a574',
-                width: '3px'
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Loading text */}
-        <div className={`transition-all duration-500 delay-500 text-center ${phase >= 4 ? 'opacity-100' : 'opacity-0'}`}>
-          <p className="text-sm text-gray-600 font-mono tracking-widest">
-            INITIALIZING SYSTEM...
-          </p>
-          <div className="flex justify-center gap-1 mt-4">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="w-2 h-2 rounded-full bg-brown-700 animate-pulse"
-                style={{ animationDelay: `${i * 150}ms` }}
-              />
-            ))}
+        {/* === TAMBAHAN: LOADING SYSTEM KANAN BAWAH === */}
+        <div className="absolute bottom-8 right-8 flex flex-col items-end font-mono text-xs text-[#5a4a3a]">
+          <p className="mb-2 tracking-widest uppercase">System Initialization Sequence</p>
+          <div className="flex items-center gap-2">
+             <span className="font-bold">{Math.floor(progress).toString().padStart(3, '0')}%</span>
+             <div className="flex gap-1">
+               {[0, 1, 2].map((i) => (
+                 <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#8b6f47] animate-pulse" style={{ animationDelay: `${i * 200}ms` }} />
+               ))}
+             </div>
           </div>
+          <p className="mt-1 text-[10px] opacity-70">Loading core modules...</p>
         </div>
       </div>
 
-      {/* Corner decorations */}
-      <div className="absolute top-0 left-0 w-20 h-20 border-l-2 border-t-2 border-brown-300 opacity-50" />
-      <div className="absolute top-0 right-0 w-20 h-20 border-r-2 border-t-2 border-brown-300 opacity-50" />
-      <div className="absolute bottom-0 left-0 w-20 h-20 border-l-2 border-b-2 border-brown-300 opacity-50" />
-      <div className="absolute bottom-0 right-0 w-20 h-20 border-r-2 border-b-2 border-brown-300 opacity-50" />
+
+      {/* === SIDEBAR PROGRESS BAR (Kiri) === */}
+      <div className="absolute top-0 bottom-0 left-0 w-16 md:w-24 z-20 flex flex-col justify-end border-r border-[#8b6f47]/10 bg-white">
+        <div 
+          className="w-full bg-[#8b6f47] transition-all duration-100 ease-out relative"
+          style={{ height: `${progress}%` }}
+        >
+           <div className="absolute top-0 left-0 right-0 h-1 bg-white/50 shadow-[0_0_10px_rgba(139,111,71,0.5)]" />
+        </div>
+        {/* Teks Vertikal di sidebar */}
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 writing-vertical-rl text-[10px] font-mono text-[#8b6f47] tracking-[0.3em] opacity-50 uppercase">
+           Loading Process //
+        </div>
+      </div>
+
+
+      {/* === LAYER 2: BROWN SWIPE === */}
+      <div 
+        className={cn(
+          "absolute inset-0 bg-[#8b6f47] z-30 transform -translate-x-full transition-transform duration-[800ms] ease-[cubic-bezier(0.65,0,0.35,1)]",
+          (animationStep === "wipe-brown" || animationStep === "wipe-white") && "translate-x-0"
+        )}
+      />
+
+
+      {/* === LAYER 3: WHITE SWIPE === */}
+      <div 
+        className={cn(
+          "absolute inset-0 bg-white z-40 transform -translate-x-full transition-transform duration-[800ms] ease-[cubic-bezier(0.65,0,0.35,1)]",
+          animationStep === "wipe-white" && "translate-x-0"
+        )}
+      />
+
     </div>
   )
 }

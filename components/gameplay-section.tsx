@@ -75,6 +75,7 @@ export function GameplaySection() {
     <section
       id="projects"
       ref={sectionRef}
+      // FIX 1: ml-16 untuk sidebar, padding Y standar
       className="relative min-h-screen bg-background text-foreground overflow-hidden py-20 ml-0 lg:ml-16"
     >
       {/* Section number */}
@@ -107,7 +108,8 @@ export function GameplaySection() {
         }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
+      {/* FIX 2: Tambahkan 'mx-auto' untuk memusatkan grid */}
+      <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 mx-auto">
         {/* Header */}
         <div className={`mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="text-xs tracking-[0.3em] text-accent mb-2 font-mono">[ DEPLOYMENT ]</div>

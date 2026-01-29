@@ -25,11 +25,11 @@ const timeline = [
   {
     id: 3,
     type: "internship",
-    title: "Internship Candidate",
-    role: "Targeting Major Organizations",
-    period: "Seeking Opportunities",
-    description: "Actively seeking internship positions at PT Semen Jawa or PT Angkasa Pura 2 to apply practical engineering skills in industrial environments.",
-    details: ["Industrial Experience", "Cross-functional Collaboration", "Real-world Projects"],
+    title: "PT AISIN INDONESIA",
+    role: "Robotics Analysis Intern",
+    period: "January 2026 - Present",
+    description: "Selected for industrial internship focused on robotic analysis and development. Applying ROS 2 knowledge for industrial automation systems.",
+    details: ["Robotic Analysis", "ROS 2 Application", "Industrial Automation"],
   },
 ]
 
@@ -99,7 +99,8 @@ export function WorldSection() {
 
         {/* Content */}
         <div className="relative z-10 h-full flex items-center">
-          <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
+          {/* FIX: Ubah max-w-5xl jadi max-w-7xl agar konsisten lebar */}
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left: Timeline */}
               <div className="space-y-6">

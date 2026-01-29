@@ -10,14 +10,16 @@ const artworks = [
     title: "Mirae Nakamura", 
     category: "CHARACTER", 
     year: "2024",
-    description: "Personal mascot character designed in anime style."
+    description: "Personal mascot character designed in anime style.",
+    image: "/images/mirae-mascot.png" // Gambar asli 1
   },
   { 
     id: 2, 
-    title: "Digital Portrait - Study", 
-    category: "PORTRAIT", 
+    title: "Mascot Variation", 
+    category: "ILLUSTRATION", 
     year: "2024",
-    description: "Character study focusing on expression and lighting."
+    description: "Chibi/Mascot variation for branding and UI elements.",
+    image: "/images/portait.jpg" // Gambar asli 2
   },
   { 
     id: 3, 
@@ -129,7 +131,7 @@ export function GallerySection() {
         }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
         {/* Header */}
         <div className={`mb-12 flex items-end justify-between transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div>
@@ -180,28 +182,38 @@ export function GallerySection() {
                   borderColor: index === activeIndex ? 'var(--color-chart-1)' : 'var(--border)',
                 }}
               >
-                {/* Placeholder with gradient */}
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent from-20% via-background to-card">
-                  {/* Grid overlay */}
-                  <div className="absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage: `
-                        linear-gradient(0deg, var(--border) 1px, transparent 1px),
-                        linear-gradient(90deg, var(--border) 1px, transparent 1px)
-                      `,
-                      backgroundSize: '20px 20px',
-                    }}
-                  />
-                  <div className="text-center z-10">
-                    <div className="w-12 h-12 rounded-full border-2 border-accent border-opacity-50 flex items-center justify-center group-hover:scale-110 transition-transform mb-2">
-                      <span className="text-xl font-black text-accent opacity-50">{index + 1}</span>
+                {/* LOGIC TAMPILAN: Jika ada gambar, tampilkan. Jika tidak, tampilkan dummy angka */}
+                {item.image ? (
+                  <>
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-110" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60" />
+                  </>
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent from-20% via-background to-card">
+                    <div className="absolute inset-0 opacity-30"
+                      style={{
+                        backgroundImage: `
+                          linear-gradient(0deg, var(--border) 1px, transparent 1px),
+                          linear-gradient(90deg, var(--border) 1px, transparent 1px)
+                        `,
+                        backgroundSize: '20px 20px',
+                      }}
+                    />
+                    <div className="text-center z-10">
+                      <div className="w-12 h-12 rounded-full border-2 border-accent border-opacity-50 flex items-center justify-center group-hover:scale-110 transition-transform mb-2">
+                        <span className="text-xl font-black text-accent opacity-50">{index + 1}</span>
+                      </div>
+                      <div className="text-xs font-mono text-accent opacity-50">[ARTWORK]</div>
                     </div>
-                    <div className="text-xs font-mono text-accent opacity-50">[ARTWORK]</div>
                   </div>
-                </div>
+                )}
 
-                {/* Border effect */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" 
+                {/* Border effect overlay */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" 
                   style={{
                     backgroundColor: 'var(--color-chart-1)',
                     opacity: index === activeIndex ? 0.1 : 0,
