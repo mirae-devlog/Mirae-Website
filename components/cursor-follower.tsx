@@ -66,7 +66,7 @@ export function CursorFollower() {
           <div 
             className="w-1 h-1 rounded-full"
             style={{
-              backgroundColor: 'oklch(0.55 0.15 250 / 0.5)',
+              backgroundColor: 'rgba(139,111,71,0.5)',
               opacity: (index + 1) / trail.length * 0.5,
               transform: `scale(${(index + 1) / trail.length})`,
             }}
@@ -89,14 +89,14 @@ export function CursorFollower() {
             isHovering ? 'scale-150' : 'scale-100'
           }`}
           style={{
-            borderColor: isHovering ? 'oklch(0.55 0.15 250)' : 'oklch(0.2 0 0 / 0.3)',
+            borderColor: isHovering ? 'var(--color-chart-1)' : 'rgba(0,0,0,0.3)',
           }}
         />
         {/* Inner dot */}
         <div 
           className="w-2 h-2 rounded-full transition-all duration-200"
           style={{
-            backgroundColor: isHovering ? 'oklch(0.55 0.15 250)' : 'oklch(0.95 0 0)',
+            backgroundColor: isHovering ? 'var(--color-chart-1)' : 'var(--color-accent)'
           }}
         />
       </div>

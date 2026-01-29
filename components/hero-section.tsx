@@ -48,28 +48,28 @@ export function HeroSection() {
       <div 
         className="absolute top-20 left-[15%] w-32 h-48 transition-transform duration-700 ease-out opacity-30"
         style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
+          backgroundColor: 'var(--color-chart-3)',
           transform: `translate(${mousePosition.x * 0.5}px, ${mousePosition.y * 0.5}px)`,
         }}
       />
       <div 
         className="absolute top-40 right-[10%] w-48 h-32 transition-transform duration-700 ease-out opacity-25"
         style={{ 
-          backgroundColor: 'oklch(0.28 0.05 240)',
+          backgroundColor: 'var(--color-chart-4)',
           transform: `translate(${-mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`,
         }}
       />
       <div 
         className="absolute bottom-32 left-[20%] w-24 h-40 transition-transform duration-700 ease-out opacity-30"
         style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
+          backgroundColor: 'var(--color-chart-3)',
           transform: `translate(${mousePosition.x * 0.4}px, ${-mousePosition.y * 0.4}px)`,
         }}
       />
       <div 
         className="absolute bottom-20 right-[25%] w-40 h-24 transition-transform duration-700 ease-out opacity-25"
         style={{ 
-          backgroundColor: 'oklch(0.28 0.05 240)',
+          backgroundColor: 'var(--color-chart-4)',
           transform: `translate(${-mousePosition.x * 0.6}px, ${-mousePosition.y * 0.6}px)`,
         }}
       />

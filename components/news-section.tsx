@@ -4,6 +4,18 @@ import { useRef, useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { Calendar, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 
+// small helper to pick readable text color over a background hex
+function getContrastColor(hex: string) {
+  // strip # if present
+  const h = hex.replace('#', '')
+  const r = parseInt(h.substring(0,2), 16)
+  const g = parseInt(h.substring(2,4), 16)
+  const b = parseInt(h.substring(4,6), 16)
+  // relative luminance
+  const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+  return lum > 0.55 ? '#1a1a1a' : '#ffffff'
+}
+
 const newsCategories = ["ALL", "UPDATE", "PROJECT", "LEARNING"]
 
 const newsItems = [
@@ -14,7 +26,8 @@ const newsItems = [
     title: "Portfolio Website Launch",
     description: "Deployed new tech-industrial portfolio featuring project archive and experience timeline.",
     featured: true,
-    color: "oklch(0.55 0.15 250)",
+    // use palette colors from app/globals.css for consistency
+    color: "#8b6f47", // chart-1 / primary
   },
   {
     id: 2,
@@ -23,7 +36,7 @@ const newsItems = [
     title: "ROS 2 Architecture Complete",
     description: "Successfully implemented complete ROS 2 robotics architecture on Raspberry Pi 5 with Docker containerization.",
     featured: false,
-    color: "oklch(0.45 0.12 260)",
+    color: "#d4a574", // chart-2 / secondary
   },
   {
     id: 3,
@@ -32,7 +45,7 @@ const newsItems = [
     title: "IoT Sensor Integration Mastered",
     description: "Completed advanced IoT sensor integration for aquaculture automation project with real-time monitoring.",
     featured: false,
-    color: "oklch(0.6 0.1 245)",
+    color: "#c9975f", // chart-3
   },
   {
     id: 4,
@@ -41,7 +54,7 @@ const newsItems = [
     title: "Eventide Development Group Founded",
     description: "Officially launched Eventide Development Group focused on innovative IoT and robotics solutions.",
     featured: false,
-    color: "oklch(0.5 0.14 255)",
+    color: "#a08668", // chart-4
   },
   {
     id: 5,
@@ -50,7 +63,7 @@ const newsItems = [
     title: "Track Ma Maney Mobile App Beta",
     description: "Released beta version of Track Ma Maney finance tracking app on iOS and Android platforms.",
     featured: false,
-    color: "oklch(0.35 0.08 250)",
+    color: "#5a4a3a", // chart-5 / accent
   },
 ]
 
@@ -117,14 +130,14 @@ export function NewsSection() {
       <div 
         className="absolute top-32 right-[4%] w-28 h-40 transition-transform duration-500 opacity-25"
         style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
+          backgroundColor: 'var(--color-chart-3)',
           transform: `translate(${-mousePos.x}px, ${mousePos.y}px)` 
         }}
       />
       <div 
         className="absolute bottom-40 left-[6%] w-36 h-28 transition-transform duration-500 opacity-20"
         style={{ 
-          backgroundColor: 'oklch(0.28 0.05 240)',
+          backgroundColor: 'var(--color-chart-4)',
           transform: `translate(${mousePos.x}px, ${-mousePos.y}px)` 
         }}
       />
@@ -136,7 +149,7 @@ export function NewsSection() {
 
       <div className="relative z-10">
         {/* Header */}
-        <div className={`max-w-7xl mx-auto px-4 md:px-8 mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div className={`max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 mb-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8">
             <div>
               <div className="text-xs tracking-[0.3em] text-accent mb-2 font-mono">[ UPDATES ]</div>
@@ -168,7 +181,7 @@ export function NewsSection() {
 
         {/* Featured news */}
         {activeCategory === "ALL" && (
-          <div className={`max-w-7xl mx-auto px-4 md:px-8 mb-12 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <div className={`max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 mb-12 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
             <div
               className="relative h-[350px] md:h-[450px] overflow-hidden border-2 border-accent group cursor-pointer"
               onMouseEnter={() => setHoveredCard(-1)}
@@ -268,8 +281,8 @@ export function NewsSection() {
                   <div className="p-6 min-h-[280px] flex flex-col">
                     <div className="flex items-center gap-3 mb-4">
                       <span
-                        className="px-2 py-0.5 text-[10px] font-bold tracking-wider text-accent-foreground"
-                        style={{ backgroundColor: item.color }}
+                        className="px-2 py-0.5 text-[10px] font-bold tracking-wider"
+                        style={{ backgroundColor: item.color, color: getContrastColor(item.color) }}
                       >
                         {item.category}
                       </span>
@@ -305,7 +318,7 @@ export function NewsSection() {
         </div>
 
         {/* View all button */}
-        <div className={`max-w-7xl mx-auto px-4 md:px-8 mt-12 text-center transition-all duration-1000 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+        <div className={`max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 mt-12 text-center transition-all duration-1000 delay-600 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <button className="group px-8 py-4 bg-accent text-accent-foreground font-bold tracking-wider hover:shadow-lg transition-all">
             <span className="flex items-center gap-2 justify-center">
               VIEW ALL UPDATES

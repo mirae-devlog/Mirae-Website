@@ -61,10 +61,8 @@ export function ProgressSidebar() {
     <div className="fixed left-0 top-0 h-screen z-50 hidden lg:flex flex-col items-center py-8 w-16 bg-card border-r border-border">
       {/* Logo at top */}
       <div className="mb-8">
-        <div className="w-8 h-8 border-2 border-accent flex items-center justify-center">
-          <div className="text-[8px] font-black leading-none text-accent">
-            <div>MH</div>
-          </div>
+        <div className="w-8 h-8 border-2 border-accent flex items-center justify-center rounded-sm bg-card">
+          <span className="text-[8px] font-black text-accent">MH</span>
         </div>
       </div>
 
@@ -78,7 +76,7 @@ export function ProgressSidebar() {
           className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] transition-all duration-300"
           style={{ 
             height: `${scrollProgress}%`,
-            background: 'linear-gradient(to bottom, oklch(0.55 0.15 250), oklch(0.45 0.12 260))',
+            background: 'linear-gradient(to bottom, var(--color-chart-1), var(--color-chart-2))',
           }}
         />
 
@@ -97,19 +95,17 @@ export function ProgressSidebar() {
                 onMouseEnter={() => setHoveredSection(section.id)}
                 onMouseLeave={() => setHoveredSection(null)}
                 className={cn(
-                  "relative w-10 h-10 flex items-center justify-center transition-all duration-300 group",
+                  "relative w-10 h-10 flex items-center justify-center transition-all duration-300 group z-20 rounded-md overflow-hidden",
                   isActive ? "scale-110" : "scale-100 hover:scale-110"
                 )}
               >
                 {/* Background */}
                 <div 
-                  className="absolute inset-0 transition-all duration-300"
+                  className="absolute inset-0 transition-all duration-300 rounded-md"
                   style={{
                     backgroundColor: isActive 
-                      ? 'oklch(0.55 0.15 250)' 
-                      : isPassed 
-                        ? 'oklch(0.2 0 0 / 0.1)' 
-                        : 'oklch(0.15 0 0)',
+                      ? 'var(--color-chart-1)' 
+                      : 'var(--card)'
                   }}
                 />
                 
@@ -119,10 +115,10 @@ export function ProgressSidebar() {
                   className="relative z-10 transition-colors duration-300"
                   style={{
                     color: isActive 
-                      ? 'oklch(0.08 0 0)' 
+                      ? 'var(--color-card-foreground)' 
                       : isPassed 
-                        ? 'oklch(0.65 0 0)' 
-                        : 'oklch(0.4 0 0)',
+                        ? 'var(--color-accent)' 
+                        : 'var(--color-muted-foreground)',
                   }}
                 />
 
@@ -130,9 +126,9 @@ export function ProgressSidebar() {
                 <div 
                   className="absolute left-full ml-3 px-3 py-1 text-xs font-medium tracking-wider whitespace-nowrap transition-all duration-300 border"
                   style={{
-                    backgroundColor: 'oklch(0.12 0 0)',
-                    color: 'oklch(0.95 0 0)',
-                    borderColor: 'oklch(0.55 0.15 250)',
+                    backgroundColor: 'var(--color-card)',
+                    color: 'var(--color-card-foreground)',
+                    borderColor: 'var(--color-chart-1)',
                     opacity: hoveredSection === section.id ? 1 : 0,
                     transform: hoveredSection === section.id ? 'translateX(0)' : 'translateX(-8px)',
                     pointerEvents: hoveredSection === section.id ? 'auto' : 'none',
@@ -141,7 +137,7 @@ export function ProgressSidebar() {
                   {section.label}
                   <div 
                     className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1 w-2 h-2 rotate-45" 
-                    style={{ backgroundColor: 'oklch(0.12 0 0)', borderLeft: '1px solid oklch(0.55 0.15 250)', borderTop: '1px solid oklch(0.55 0.15 250)' }}
+                    style={{ backgroundColor: 'var(--color-card)', borderLeft: '1px solid var(--color-chart-1)', borderTop: '1px solid var(--color-chart-1)' }}
                   />
                 </div>
               </button>

@@ -60,14 +60,14 @@ export function Footer() {
     <footer className="relative bg-card ml-0 lg:ml-16 border-t border-border">
       {/* Contact CTA banner */}
       <div className="relative z-10 bg-accent bg-opacity-10 border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-12 md:py-16">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div>
-              <h3 className="text-2xl md:text-4xl font-black tracking-tight text-foreground mb-2">
+              <h3 className="text-2xl md:text-4xl font-black tracking-tight text-accent-foreground mb-2">
                 LET'S WORK<br />
                 <span className="text-accent">TOGETHER</span>
               </h3>
-              <p className="text-muted-foreground text-sm md:text-base">
+              <p className="text-accent-foreground text-sm md:text-base">
                 Interested in collaborating or learning more about my work?
               </p>
             </div>
@@ -101,12 +101,12 @@ export function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8 py-12 md:py-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 md:gap-12">
           {/* Logo column */}
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 border-2 border-accent flex items-center justify-center">
+              <div className="w-10 h-10 border-2 border-accent flex items-center justify-center bg-card">
                 <span className="text-xs font-black text-accent">MH</span>
               </div>
               <span className="text-lg font-bold tracking-wider text-foreground">HUSAINI</span>
@@ -163,7 +163,7 @@ export function Footer() {
 
       {/* Bottom bar */}
       <div className="relative z-10 border-t border-border">
-        <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
+        <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-muted-foreground text-xs">
               <span>© 2026 Muhamad Hafizh Husaini. All rights reserved.</span>

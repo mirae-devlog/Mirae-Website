@@ -95,19 +95,19 @@ export function GameplaySection() {
       <div 
         className="absolute top-32 left-[5%] w-24 h-40 transition-transform duration-500 opacity-25"
         style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
+          backgroundColor: 'var(--color-chart-3)',
           transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` 
         }}
       />
       <div 
         className="absolute bottom-40 right-[8%] w-36 h-28 transition-transform duration-500 opacity-20"
         style={{ 
-          backgroundColor: 'oklch(0.28 0.05 240)',
+          backgroundColor: 'var(--color-chart-4)',
           transform: `translate(${-mousePos.x * 0.4}px, ${-mousePos.y * 0.4}px)` 
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <div className={`mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div className="text-xs tracking-[0.3em] text-accent mb-2 font-mono">[ DEPLOYMENT ]</div>
@@ -126,7 +126,7 @@ export function GameplaySection() {
               className={cn(
                 "group text-left p-6 transition-all duration-300 border cursor-pointer",
                 activeProject === index 
-                  ? "border-accent bg-accent bg-opacity-15" 
+                  ? "border-accent bg-accent bg-opacity-15 text-accent-foreground" 
                   : "border-border bg-background hover:border-accent hover:bg-accent hover:bg-opacity-10"
               )}
             >
@@ -136,7 +136,7 @@ export function GameplaySection() {
                   <div className="text-xs font-bold text-accent tracking-wider mb-1">
                     [ {project.category} ]
                   </div>
-                  <h3 className="text-xl md:text-2xl font-black text-foreground group-hover:text-accent transition-colors">
+                  <h3 className="text-xl md:text-2xl font-black group-hover:text-accent transition-colors">
                     {project.title}
                   </h3>
                 </div>
@@ -156,7 +156,7 @@ export function GameplaySection() {
                 {project.tags.map((tag) => (
                   <span 
                     key={tag}
-                    className="px-2 py-1 text-[10px] font-bold bg-accent bg-opacity-20 text-accent border border-accent border-opacity-50 tracking-wider"
+                    className="px-2 py-1 text-[10px] font-bold bg-accent bg-opacity-20 text-accent-foreground border border-accent border-opacity-50 tracking-wider"
                   >
                     {tag}
                   </span>
@@ -174,25 +174,25 @@ export function GameplaySection() {
 
         {/* Detailed view */}
         {activeProject !== null && (
-          <div className={`mt-16 p-8 border border-accent bg-accent bg-opacity-5 transition-all duration-700 ${isVisible ? "opacity-100" : "opacity-0"}`}>
+          <div className={`mt-16 p-8 border border-accent bg-accent bg-opacity-5 text-accent-foreground transition-all duration-700 ${isVisible ? "opacity-100" : "opacity-0"}`}>
             <div className="grid lg:grid-cols-2 gap-8">
               {/* Left: Project info */}
               <div>
-                <h3 className="text-3xl md:text-4xl font-black text-foreground mb-2">
+                <h3 className="text-3xl md:text-4xl font-black text-accent-foreground mb-2">
                   {projects[activeProject].title}
                 </h3>
-                <p className="text-sm text-accent font-mono mb-4">
+                <p className="text-sm text-accent-foreground font-mono mb-4">
                   [ {projects[activeProject].category} ]
                 </p>
-                <p className="text-base text-muted-foreground leading-relaxed mb-6">
+                <p className="text-base text-accent-foreground leading-relaxed mb-6">
                   {projects[activeProject].description}
                 </p>
 
                 {/* Features */}
                 <div className="space-y-2">
-                  <div className="text-xs font-bold text-accent tracking-wider mb-2">[ FEATURES ]</div>
+                  <div className="text-xs font-bold text-accent-foreground tracking-wider mb-2">[ FEATURES ]</div>
                   {projects[activeProject].features.map((feature) => (
-                    <div key={feature} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <div key={feature} className="flex items-center gap-2 text-sm text-accent-foreground">
                       <span className="w-1.5 h-1.5 bg-accent" />
                       {feature}
                     </div>
@@ -207,7 +207,7 @@ export function GameplaySection() {
                   {projects[activeProject].tags.map((tag) => (
                     <span 
                       key={tag}
-                      className="px-3 py-2 text-xs font-bold bg-accent bg-opacity-20 text-accent border border-accent tracking-wider"
+                      className="px-3 py-2 text-xs font-bold bg-accent bg-opacity-20 text-accent-foreground border border-accent tracking-wider"
                     >
                       {tag}
                     </span>
@@ -229,7 +229,7 @@ export function GameplaySection() {
 
         {/* Progress */}
         <div className="mt-12 flex items-center justify-center gap-4">
-          <span className="text-sm font-bold text-accent">
+          <span className="text-sm font-bold text-accent-foreground">
             {String(activeProject + 1).padStart(2, "0")}
           </span>
           <div className="flex gap-2">

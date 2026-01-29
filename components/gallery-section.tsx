@@ -117,19 +117,19 @@ export function GallerySection() {
       <div 
         className="absolute top-40 right-[3%] w-28 h-44 transition-transform duration-500 opacity-25"
         style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
+          backgroundColor: 'var(--color-chart-3)',
           transform: `translate(${-mousePos.x}px, ${mousePos.y}px)` 
         }}
       />
       <div 
-        className="absolute bottom-32 left-[6%] w-36 h-24 transition-transform duration-500 opacity-20"
+        className="absolute bottom-32 left-[6%] w-36 h-28 transition-transform duration-500 opacity-20"
         style={{ 
-          backgroundColor: 'oklch(0.28 0.05 240)',
+          backgroundColor: 'var(--color-chart-4)',
           transform: `translate(${mousePos.x}px, ${-mousePos.y}px)` 
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-8 lg:px-10">
         {/* Header */}
         <div className={`mb-12 flex items-end justify-between transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
           <div>
@@ -177,7 +177,7 @@ export function GallerySection() {
             >
               <div className="relative aspect-square bg-card border-2 overflow-hidden transition-all duration-300 group-hover:border-accent"
                 style={{
-                  borderColor: index === activeIndex ? 'oklch(0.55 0.15 250)' : 'var(--border)',
+                  borderColor: index === activeIndex ? 'var(--color-chart-1)' : 'var(--border)',
                 }}
               >
                 {/* Placeholder with gradient */}
@@ -203,7 +203,7 @@ export function GallerySection() {
                 {/* Border effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" 
                   style={{
-                    backgroundColor: 'oklch(0.55 0.15 250)',
+                    backgroundColor: 'var(--color-chart-1)',
                     opacity: index === activeIndex ? 0.1 : 0,
                   }}
                 />
@@ -237,7 +237,7 @@ export function GallerySection() {
           </span>
           <div className="flex-1 h-[2px] bg-border">
             <div 
-              className="h-full bg-accent transition-all duration-500"
+              className="h-full bg-accent text-accent-foreground transition-all duration-500"
               style={{ width: `${((activeIndex + 1) / artworks.length) * 100}%` }}
             />
           </div>

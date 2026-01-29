@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
+import { ExternalLink } from "lucide-react"
 
 export function CharacterShowcase() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -34,11 +35,17 @@ export function CharacterShowcase() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative min-h-screen bg-background text-foreground overflow-hidden py-20 ml-0 lg:ml-16"
+      // PERBAIKAN LAYOUT:
+      // 1. 'ml-0 lg:ml-16': Memberi jarak untuk Sidebar Navigasi.
+      // 2. 'flex items-center': Memastikan konten vertikal rapi.
+      // 3. Menghapus padding berlebih di section level.
+      className="relative min-h-screen bg-background text-foreground overflow-hidden py-20 ml-0 lg:ml-16 flex items-center"
     >
-      {/* Grid background */}
+      {/* --- BACKGROUND ELEMENTS --- */}
+      
+      {/* Grid Pattern Background */}
       <div 
-        className="absolute inset-0 opacity-20"
+        className="absolute inset-0 opacity-10 pointer-events-none"
         style={{
           backgroundImage: `
             linear-gradient(var(--border) 1px, transparent 1px),
@@ -48,125 +55,155 @@ export function CharacterShowcase() {
         }}
       />
 
-      {/* Accent blocks */}
+      {/* Animated Floating Blurs (Warna mengikuti tema globals.css) */}
       <div 
-        className="absolute top-0 right-[20%] w-48 h-64 transition-transform duration-700 ease-out opacity-25"
-        style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
-          transform: `translate(${-mousePos.x * 1.5}px, ${mousePos.y}px)` 
-        }}
+        className="absolute top-0 right-[20%] w-64 h-64 bg-primary/20 blur-[100px] transition-transform duration-1000"
+        style={{ transform: `translate(${-mousePos.x * 1.5}px, ${mousePos.y}px)` }}
       />
       <div 
-        className="absolute top-[30%] right-[5%] w-24 h-32 transition-transform duration-700 ease-out opacity-20"
-        style={{ 
-          backgroundColor: 'oklch(0.28 0.05 240)',
-          transform: `translate(${-mousePos.x}px, ${mousePos.y * 0.5}px)` 
-        }}
-      />
-      <div 
-        className="absolute bottom-[20%] left-[15%] w-32 h-48 transition-transform duration-700 ease-out opacity-25"
-        style={{ 
-          backgroundColor: 'oklch(0.35 0.08 250)',
-          transform: `translate(${mousePos.x}px, ${-mousePos.y}px)` 
-        }}
+        className="absolute bottom-[20%] left-[10%] w-48 h-48 bg-primary/10 blur-[80px] transition-transform duration-1000"
+        style={{ transform: `translate(${mousePos.x}px, ${-mousePos.y}px)` }}
       />
 
-      {/* Section number */}
-      <div className="absolute top-8 right-8 text-[150px] font-black text-muted opacity-20 leading-none select-none pointer-events-none">
+      {/* Decorative Large Number Background */}
+      <div className="absolute top-4 right-8 text-[120px] lg:text-[200px] font-black text-muted/30 leading-none select-none pointer-events-none z-0">
         02
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-4 lg:px-8">
-        {/* Header */}
-        <div className={`mb-16 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-          <div className="text-xs tracking-[0.3em] text-accent mb-2 font-mono">[ ABOUT ]</div>
-          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-foreground tracking-tight">
+
+      {/* --- MAIN CONTENT --- */}
+      
+      {/* CONTAINER FIX:
+          - Gunakan 'w-full' dan 'max-w-[1600px]' agar lebar tapi tidak pecah di layar ultrawide.
+          - HAPUS 'mx-auto' agar konten rapat ke kiri (dekat sidebar).
+          - Padding 'px-6 lg:px-12' agar konsisten dengan Hero.
+      */}
+      <div className="relative z-10 w-full max-w-[1600px] px-6 lg:px-12">
+        
+        {/* Header Section */}
+        <div className={`mb-12 lg:mb-20 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+          <div className="flex items-center gap-2 mb-4">
+             <div className="w-8 h-[2px] bg-primary" />
+             <div className="text-xs tracking-[0.3em] text-primary font-mono font-bold">OPERATOR PROFILE</div>
+          </div>
+          <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-foreground tracking-tighter leading-[0.9]">
             THE<br />
-            <span className="text-accent">CREATOR</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-orange-500">CREATOR</span>
           </h2>
         </div>
 
-        {/* Two column layout */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left: Text content */}
-          <div className={`space-y-8 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-20"}`}>
-            {/* Identity */}
+        {/* Grid Layout: 2 Kolom */}
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* KOLOM KIRI: Text Info (Span 7 kolom) */}
+          <div className={`lg:col-span-7 space-y-10 transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-20"}`}>
+            
+            {/* Identity Card */}
+            <div className="relative p-6 border border-border bg-card/50 backdrop-blur-sm group hover:border-primary/50 transition-colors">
+              <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-primary" />
+              <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-primary" />
+              
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono text-muted-foreground tracking-widest">REAL NAME</span>
+                  <span className="text-xs font-mono text-primary font-bold">ID: 223443016</span>
+                </div>
+                <p className="text-3xl md:text-4xl font-black text-foreground uppercase tracking-tight">Muhamad Hafizh Husaini</p>
+              </div>
+            </div>
+
+            {/* Data Grid */}
+            <div className="grid sm:grid-cols-2 gap-8">
+               {/* Affiliation */}
+               <div className="space-y-2">
+                 <div className="text-xs font-bold text-primary tracking-widest flex items-center gap-2">
+                   <span className="w-1 h-1 bg-primary rounded-full" /> AFFILIATION
+                 </div>
+                 <div className="border-l-2 border-border pl-4">
+                   <p className="text-lg font-bold text-foreground">POLMAN Bandung</p>
+                   <p className="text-sm text-muted-foreground">D4 Engineering Tech</p>
+                 </div>
+               </div>
+
+               {/* Current Status */}
+               <div className="space-y-2">
+                 <div className="text-xs font-bold text-primary tracking-widest flex items-center gap-2">
+                   <span className="w-1 h-1 bg-primary rounded-full" /> CURRENT STATUS
+                 </div>
+                 <div className="border-l-2 border-border pl-4">
+                   <p className="text-lg font-bold text-foreground">Founder & Lead</p>
+                   <p className="text-sm text-muted-foreground">Eventide Development Group</p>
+                 </div>
+               </div>
+            </div>
+
+            {/* Tech Stack (Tags) */}
             <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs font-mono text-accent">[</span>
-                <span className="text-sm font-bold text-accent tracking-wider">ID</span>
-                <span className="text-xs font-mono text-accent">]</span>
-              </div>
-              <div className="space-y-2">
-                <p className="text-2xl md:text-3xl font-black text-foreground">Muhamad Hafizh Husaini</p>
-                <p className="text-sm text-muted-foreground">Student ID: 223443016</p>
-              </div>
-            </div>
-
-            {/* Affiliation */}
-            <div className="space-y-4 pt-4 border-t border-border">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs font-mono text-accent">[</span>
-                <span className="text-sm font-bold text-accent tracking-wider">AFFILIATION</span>
-                <span className="text-xs font-mono text-accent">]</span>
-              </div>
-              <p className="text-lg font-bold text-foreground">Politeknik Manufaktur Bandung</p>
-              <p className="text-sm text-muted-foreground">D4 Engineering Technology | Semester 5</p>
-            </div>
-
-            {/* Status */}
-            <div className="space-y-4 pt-4 border-t border-border">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs font-mono text-accent">[</span>
-                <span className="text-sm font-bold text-accent tracking-wider">STATUS</span>
-                <span className="text-xs font-mono text-accent">]</span>
-              </div>
-              <p className="text-lg font-bold text-foreground">Active Developer</p>
-              <p className="text-sm text-muted-foreground">Founder of Eventide Development Group (Aug 2025)</p>
-            </div>
-
-            {/* Skills */}
-            <div className="space-y-4 pt-4 border-t border-border">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs font-mono text-accent">[</span>
-                <span className="text-sm font-bold text-accent tracking-wider">SKILLS</span>
-                <span className="text-xs font-mono text-accent">]</span>
+              <div className="text-xs font-bold text-primary tracking-widest mb-4 border-b border-border pb-2 inline-block">
+                TECHNICAL COMPETENCIES
               </div>
               <div className="flex flex-wrap gap-2">
-                {["Python", "C#", "React", "TypeScript", "ROS 2", "IoT", "Docker", "Raspberry Pi", "Unity", "Illustration"].map((skill) => (
+                {[
+                  "Python", "ROS 2", "IoT Architecture", "React Native", 
+                  "TypeScript", "Docker", "Unity Engine", "C#", "Computer Vision"
+                ].map((skill, i) => (
                   <span 
                     key={skill}
-                    className="px-3 py-1 text-xs font-bold tracking-wider bg-accent bg-opacity-20 text-accent border border-accent"
+                    className="px-3 py-1.5 text-xs font-mono font-bold bg-secondary text-secondary-foreground border border-border hover:border-primary hover:text-primary transition-colors cursor-default"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             </div>
+
+            {/* Social Links (Opsional) */}
+             <div className="flex gap-4 pt-4">
+                <a href="https://linkedin.com/in/hafizhhusaini" target="_blank" className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
+                  <ExternalLink size={16} /> LinkedIn
+                </a>
+                <a href="https://github.com" target="_blank" className="flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-primary transition-colors">
+                  <ExternalLink size={16} /> GitHub
+                </a>
+             </div>
+
           </div>
 
-          {/* Right: Mascot showcase */}
-          <div className={`relative flex items-center justify-center transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-            <div className="relative w-full aspect-square max-w-md">
-              {/* Background frame */}
-              <div className="absolute inset-0 border-2 border-accent opacity-50" />
-              <div className="absolute inset-4 border border-border opacity-30" />
-              
-              {/* Mascot image */}
-              <img
-                src="/images/mirae-mascot.png"
-                alt="Mirae Nakamura"
-                className="absolute inset-0 w-full h-full object-contain p-8"
-              />
-              
-              {/* Corner details */}
-              <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-accent opacity-50" />
-              <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-accent opacity-50" />
-              <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-accent opacity-50" />
-              <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-accent opacity-50" />
+          {/* KOLOM KANAN: Visual / Mascot (Span 5 kolom) */}
+          <div className={`lg:col-span-5 relative flex items-center justify-center lg:justify-end transition-all duration-1000 delay-400 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+            
+            {/* Visual Frame */}
+            <div className="relative w-full aspect-[4/5] max-w-md bg-gradient-to-b from-transparent to-primary/5 border border-primary/20 backdrop-blur-sm">
+               {/* Tech Decorations */}
+               <div className="absolute top-4 right-4 flex gap-1">
+                 <div className="w-1 h-1 bg-primary" />
+                 <div className="w-1 h-1 bg-primary/50" />
+                 <div className="w-1 h-1 bg-primary/20" />
+               </div>
+               
+               {/* Vertical Tech Text */}
+               <div className="absolute left-4 top-1/2 -translate-y-1/2 hidden md:block writing-vertical text-[10px] text-primary/40 font-mono tracking-widest">
+                  VISUAL_REPRESENTATION // MIRAE_NK
+               </div>
+
+               {/* Image Container */}
+               <div className="absolute inset-2 md:inset-6 overflow-hidden border border-primary/10 bg-black/5">
+                 <img
+                    src="/images/mirae-mascot.png" // Pastikan nama file ini sesuai di public/images
+                    alt="Mirae Nakamura"
+                    className="w-full h-full object-cover object-top opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-700"
+                  />
+               </div>
+
+               {/* Label Bawah */}
+               <div className="absolute bottom-4 left-6 right-6 flex justify-between items-center border-t border-primary/20 pt-2">
+                 <span className="text-[10px] font-bold text-primary">MNK-01</span>
+                 <span className="text-[10px] text-muted-foreground">ILLUSTRATION</span>
+               </div>
             </div>
+
           </div>
+
         </div>
       </div>
     </section>

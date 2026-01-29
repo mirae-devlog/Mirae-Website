@@ -85,21 +85,21 @@ export function WorldSection() {
         <div 
           className="absolute top-20 left-[8%] w-24 h-36 transition-transform duration-500 z-0 opacity-25"
           style={{ 
-            backgroundColor: 'oklch(0.35 0.08 250)',
+            backgroundColor: 'var(--color-chart-3)',
             transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)` 
           }}
         />
         <div 
           className="absolute bottom-32 right-[5%] w-32 h-24 transition-transform duration-500 z-0 opacity-20"
           style={{ 
-            backgroundColor: 'oklch(0.28 0.05 240)',
+            backgroundColor: 'var(--color-chart-4)',
             transform: `translate(${-mousePos.x * 0.4}px, ${-mousePos.y * 0.4}px)` 
           }}
         />
 
         {/* Content */}
         <div className="relative z-10 h-full flex items-center">
-          <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
+          <div className="max-w-5xl mx-auto px-6 sm:px-8 lg:px-10 w-full">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left: Timeline */}
               <div className="space-y-6">
@@ -121,7 +121,7 @@ export function WorldSection() {
                       className={cn(
                         "w-full text-left p-4 transition-all duration-300 group border",
                         activeCard === index 
-                          ? "bg-accent bg-opacity-20 border-accent" 
+                          ? "bg-accent bg-opacity-20 border-accent text-accent-foreground" 
                           : "bg-background border-border hover:border-accent hover:bg-accent hover:bg-opacity-10"
                       )}
                     >
@@ -156,31 +156,31 @@ export function WorldSection() {
                     )}
                   >
                     {/* Frame */}
-                    <div className="relative border border-accent bg-accent bg-opacity-10 p-8">
+                    <div className="relative border border-accent bg-accent bg-opacity-10 p-8 text-accent-foreground">
                       {/* Period */}
                       <div className="text-xs font-mono text-accent mb-2 tracking-wider">
                         [ {item.period} ]
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-3xl md:text-4xl font-black text-foreground mb-2">
+                      <h3 className="text-3xl md:text-4xl font-black text-accent-foreground mb-2">
                         {item.title}
                       </h3>
 
                       {/* Role */}
-                      <p className="text-sm font-bold text-accent mb-4 tracking-wide">
+                      <p className="text-sm font-bold text-accent-foreground mb-4 tracking-wide">
                         {item.role}
                       </p>
 
                       {/* Description */}
-                      <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
+                      <p className="text-sm text-accent-foreground mb-6 leading-relaxed">
                         {item.description}
                       </p>
 
                       {/* Details */}
                       <div className="space-y-2">
                         {item.details.map((detail) => (
-                          <div key={detail} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <div key={detail} className="flex items-center gap-2 text-xs text-accent-foreground">
                             <span className="w-1.5 h-1.5 bg-accent" />
                             {detail}
                           </div>
@@ -202,7 +202,7 @@ export function WorldSection() {
 
         {/* Progress indicator */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-4">
-          <span className="text-sm font-bold text-accent">
+          <span className="text-sm font-bold text-accent-foreground">
             {String(activeCard + 1).padStart(2, "0")}
           </span>
           <div className="flex gap-2">
