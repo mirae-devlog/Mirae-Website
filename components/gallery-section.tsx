@@ -11,7 +11,7 @@ const artworks = [
     category: "CHARACTER", 
     year: "2024",
     description: "Personal mascot character designed in anime style.",
-    image: "/images/mirae-mascot.png" // Gambar asli 1
+    image: "/Mirae-Website/images/mirae-mascot.png" // Gambar asli 1
   },
   { 
     id: 2, 
@@ -19,7 +19,7 @@ const artworks = [
     category: "ILLUSTRATION", 
     year: "2024",
     description: "Chibi/Mascot variation for branding and UI elements.",
-    image: "/images/portait.jpg" // Gambar asli 2
+    image: "/Mirae-Website/images/portait.jpg" // Gambar asli 2
   },
   { 
     id: 3, 
