@@ -1,4 +1,4 @@
-# ❖ MIRAE NAKAMURA // PORTFOLIO PROTOCOL
+# Personal Portofolio Website
 
 ![Project Banner](/public/images/mirae-mascot.png)
 > *Industrial Informatics Engineering Student | ROS 2 Developer | Illustrator*
