@@ -173,7 +173,7 @@ export function CharacterShowcase() {
 
                <div className="absolute inset-2 md:inset-6 overflow-hidden border border-primary/10 bg-black/5">
                  <img
-                    src="/Mirae-Website/images/1000117216.png"
+                    src="/images/mirae-mascot.png"
                     alt="Mirae Nakamura"
                     className="w-full h-full object-cover object-top opacity-90 hover:opacity-100 hover:scale-105 transition-all duration-700"
                   />
