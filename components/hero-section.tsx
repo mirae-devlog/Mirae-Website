@@ -30,7 +30,8 @@ export function HeroSection() {
     <section 
       id="home" 
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-background text-foreground flex items-center ml-0 lg:ml-16"
+      // UPDATE: min-h-[100dvh] untuk mobile browser, flex-col untuk mobile stack
+      className="relative min-h-[100dvh] overflow-hidden bg-background text-foreground flex flex-col md:flex-row items-center justify-center md:justify-start ml-0 lg:ml-16 py-20 md:py-0"
     >
       {/* Grid pattern background */}
       <div 
@@ -54,17 +55,17 @@ export function HeroSection() {
       />
       
       {/* Horizontal line accent */}
-      <div className="absolute top-1/2 left-0 right-0 h-px bg-accent opacity-40" />
+      <div className="absolute top-1/2 left-0 right-0 h-px bg-accent opacity-40 hidden md:block" />
 
-      {/* Mascot character image */}
+      {/* --- DESKTOP IMAGE (Hidden on Mobile) --- */}
       <div 
-        className="absolute inset-0 flex items-center justify-end pointer-events-none overflow-hidden"
+        className="hidden md:flex absolute inset-0 items-center justify-end pointer-events-none overflow-hidden"
         style={{ 
           transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.1}px)`,
         }}
       >
         <img 
-          src="/images/1000117216.png" 
+          src="/images/mirae-mascot.png" 
           alt="Mirae Nakamura - Personal Mascot"
           className="h-[80vh] w-auto object-contain object-right opacity-80"
           style={{ 
@@ -74,78 +75,93 @@ export function HeroSection() {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 xl:ml-20">
+      <div className="relative z-10 w-full max-w-7xl px-6 lg:px-12 xl:ml-20 flex flex-col gap-10">
         
         {/* Text Wrapper */}
         <div className="max-w-3xl">
-          {/* Label */}
-          {/* PERUBAHAN: duration-1000 menjadi duration-[2500ms] */}
-          <div 
-            className={`text-xs tracking-[0.3em] text-accent mb-4 transition-opacity duration-[2500ms] ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            [ PORTFOLIO ]
-          </div>
+          
+          {/* MOBILE PANEL BACKGROUND: Hanya muncul di HP agar teks terbaca jelas */}
+          <div className="md:bg-transparent bg-background/80 backdrop-blur-md p-6 md:p-0 rounded-xl md:rounded-none border border-border md:border-none shadow-2xl md:shadow-none">
+            
+            {/* Label */}
+            <div 
+              className={`text-xs tracking-[0.3em] text-accent mb-4 transition-opacity duration-[2500ms] ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              [ PORTFOLIO ]
+            </div>
 
-          {/* Name */}
-          {/* PERUBAHAN: duration-1000 menjadi duration-[2500ms] */}
-          <h1 
-            className={`text-5xl md:text-7xl lg:text-9xl font-black tracking-tight text-foreground mb-4 transition-opacity duration-[2500ms] delay-200 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            MUHAMAD<br />
-            HAFIZH<br />
-            HUSAINI
-          </h1>
+            {/* Name - Responsive Font Size */}
+            <h1 
+              className={`text-4xl sm:text-5xl md:text-7xl lg:text-9xl font-black tracking-tight text-foreground mb-4 transition-opacity duration-[2500ms] delay-200 ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              MUHAMAD<br />
+              HAFIZH<br />
+              HUSAINI
+            </h1>
 
-          {/* Subtitle */}
-          {/* PERUBAHAN: duration-1000 menjadi duration-[2500ms] */}
-          <p 
-            className={`text-lg md:text-2xl text-muted-foreground tracking-wide mb-8 transition-opacity duration-[2500ms] delay-300 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            Industrial Informatics Engineering Student | ROS 2 Developer | Illustrator
-          </p>
+            {/* Subtitle */}
+            <p 
+              className={`text-sm md:text-2xl text-muted-foreground tracking-wide mb-8 transition-opacity duration-[2500ms] delay-300 ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              Industrial Informatics Engineering Student | ROS 2 Developer | Illustrator
+            </p>
 
-          {/* Description */}
-          {/* PERUBAHAN: duration-1000 menjadi duration-[2500ms] */}
-          <div 
-            className={`text-sm md:text-base text-muted-foreground max-w-xl mb-12 leading-relaxed transition-opacity duration-[2500ms] delay-400 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div className="border-l-2 border-accent pl-4 space-y-2">
-              <div>
-                <span className="text-accent font-mono font-bold">[ STATUS ]</span> Intern at PT AISIN INDONESIA | Founder of Eventide Development Group
-              </div>
-              <div>
-                <span className="text-accent font-mono font-bold">[ SKILLS ]</span> Python • C# • React • TypeScript • ROS 2 • IoT • Docker • Robotics
+            {/* Description */}
+            <div 
+              className={`text-xs md:text-base text-muted-foreground max-w-xl mb-8 md:mb-12 leading-relaxed transition-opacity duration-[2500ms] delay-400 ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <div className="border-l-2 border-accent pl-4 space-y-2">
+                <div>
+                  <span className="text-accent font-mono font-bold">[ STATUS ]</span> Intern at PT AISIN INDONESIA | Founder of Eventide Development Group
+                </div>
+                <div>
+                  <span className="text-accent font-mono font-bold">[ SKILLS ]</span> Python • C# • React • TypeScript • ROS 2 • IoT • Docker • Robotics
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* CTA Buttons */}
-          {/* PERUBAHAN: duration-1000 menjadi duration-[2500ms] */}
-          <div 
-            className={`flex flex-wrap items-center gap-4 transition-opacity duration-[2500ms] delay-500 ${
-              isLoaded ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <a href="#projects" className="group relative px-8 py-4 bg-accent text-accent-foreground text-sm font-bold tracking-wider overflow-hidden hover:shadow-lg transition-all duration-300">
-              <span className="relative z-10">VIEW PROJECTS</span>
-            </a>
-            <a href="#contact" className="group relative px-8 py-4 border border-accent text-accent text-sm font-bold tracking-wider hover:bg-accent hover:text-accent-foreground transition-all duration-300">
-              <span className="relative z-10">CONTACT ME</span>
-            </a>
+            {/* CTA Buttons */}
+            <div 
+              className={`flex flex-col sm:flex-row items-stretch sm:items-center gap-4 transition-opacity duration-[2500ms] delay-500 ${
+                isLoaded ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <a href="#projects" className="group relative px-8 py-4 bg-accent text-accent-foreground text-sm font-bold tracking-wider overflow-hidden hover:shadow-lg transition-all duration-300 text-center">
+                <span className="relative z-10">VIEW PROJECTS</span>
+              </a>
+              <a href="#contact" className="group relative px-8 py-4 border border-accent text-accent text-sm font-bold tracking-wider hover:bg-accent hover:text-accent-foreground transition-all duration-300 text-center">
+                <span className="relative z-10">CONTACT ME</span>
+              </a>
+            </div>
           </div>
         </div>
+
+        {/* --- MOBILE IMAGE (Visible ONLY on Mobile) --- */}
+        {/* Ditaruh di bawah teks agar tidak menumpuk */}
+        <div className="md:hidden relative w-full flex justify-center mt-4">
+          <div className="relative w-[80%] aspect-square max-w-[300px]">
+             {/* Dekorasi Belakang Gambar */}
+             <div className="absolute inset-0 border border-accent/20 rounded-full animate-[spin_10s_linear_infinite]" />
+             <img 
+                src="/images/mirae-mascot.png" 
+                alt="Mirae Mascot"
+                className="w-full h-full object-contain drop-shadow-2xl"
+             />
+          </div>
+        </div>
+
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+      {/* Scroll indicator (Hidden on small mobile screens to save space) */}
+      <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2">
         <div className="text-xs tracking-widest text-muted-foreground">[ SCROLL ]</div>
         <div className="w-[1px] h-8 bg-gradient-to-b from-accent to-transparent opacity-50 animate-pulse" />
       </div>
