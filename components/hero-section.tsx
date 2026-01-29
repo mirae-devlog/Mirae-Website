@@ -64,7 +64,7 @@ export function HeroSection() {
         }}
       >
         <img 
-          src="/images/mirae-mascot.png" 
+          src="/images/1000117216.png" 
           alt="Mirae Nakamura - Personal Mascot"
           className="h-[80vh] w-auto object-contain object-right opacity-80"
           style={{ 
