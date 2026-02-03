@@ -50,7 +50,7 @@ export function Navigation() {
     <>
       <nav
         className={cn(
-          "fixed top-0 right-0 left-16 lg:left-16 z-40 transition-all duration-500",
+          "fixed top-0 right-0 left-0 md:left-16 lg:left-16 z-40 transition-all duration-500",
           isScrolled
             ? "bg-background/90 backdrop-blur-xl border-b border-border"
             : "bg-transparent"
